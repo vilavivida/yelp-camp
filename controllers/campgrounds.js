@@ -56,7 +56,6 @@ module.exports.showCampground = wrapAsync(async (req, res) => {
         populate: { path: 'author' }
     }).populate('author')
 
-
     if (!campground) {
         req.flash('error', "Cannot find the campground you searched")
         return res.redirect('/campgrounds')

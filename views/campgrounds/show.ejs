@@ -28,6 +28,15 @@
                 <div class="card-body">
                     <h5 class="card-title">"<%= campground.title %> "</h5>
                     <p class="card-text">"<%= campground.description %> "</p>
+                    <div>
+                        <% if (campground.reviews.length===0) {%>
+                            <p style="background-color:powderblue;">Be the first one to review this campground!</p>
+                            <% } else {%>
+                                <p style="background-color:powderblue;">Current Campground Rating: </p>
+                                <p class="starability-result" data-rating="<%= campground.averageRating %>">
+                                </p>
+                                <% } %>
+                    </div>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item text-muted">
@@ -101,11 +110,12 @@
                                         <%= review.author.username %>
                                     </h5>
                                     <p class="starability-result" data-rating="<%= review.rating %>">
-                                        Rated: <%= review.rating %> stars
                                     </p>
                                     </p>
                                     <p>
-                                        Review: <%= review.body %>
+                                        <em>
+                                            <%= review.body %>
+                                        </em>
                                     </p>
                                     <form
                                         action='/campgrounds/<%= campground._id%>/reviews/<%=review._id%>?_method=Delete'
