@@ -8,14 +8,23 @@ function wrapAsync(fn) {
     }
 }
 
-
 module.exports.createReview = wrapAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id)
+    const campground = await Campground.findById(req.params.id).populate("reviews")
     const review = new Review(req.body.review)
     review.author = req.user._id
-    campground.reviews.push(review)
+    review.campground = campground
+    // save review
     await review.save()
+    // calculate average rating
+    campground.reviews.push(review)
+    var sum = 0
+    campground.reviews.forEach(function (item) {
+        sum += item.rating;
+    });
+    campground.averageRating = sum / campground.reviews.length
+    // save campground
     await campground.save()
+    // flash message
     req.flash('success', "Congradulation, you successfully upload a review")
     res.redirect(`/campgrounds/${campground._id}`)
 })

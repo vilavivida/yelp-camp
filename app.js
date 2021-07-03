@@ -26,14 +26,14 @@ const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require('helmet')
 
 
-// const dbUrl = process.env.DB_URL
 const secret = process.env.SECRET || 'thisshouldbeabetter'
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp'
+// const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp'
+
+// seed data
+const dbUrl = 'mongodb://localhost:27017/yelp-camp'
 
 // store session in MongoDB
 const MongoDBStore = require('connect-mongo')
-
-// 'mongodb://localhost:27017/yelp-camp'
 
 // use dbUrl to connect to the cloud mongo
 mongoose.connect(dbUrl, {
