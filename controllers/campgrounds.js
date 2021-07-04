@@ -30,8 +30,6 @@ module.exports.createCampground = wrapAsync(async (req, res, next) => {
         limit: 1
     }).send()
 
-    // res.send('Success: ', geoData.body.features[0].geometry.coordinates)
-
     const campground = new Campground(req.body.campground)
 
     // save geoJSON to the geometry property

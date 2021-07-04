@@ -1,9 +1,26 @@
 <!-- pass the content of this ejs file to the boilerplate -->
 <% layout('layouts/boilerplate')%>
+    <link rel='stylesheet' href='/stylesheets/stars.css'>
+    <link rel="stylesheet" href="/stylesheets/index.css">
+
 
     <!-- map -->
     <div class="mb-3" id="cluster-map">
     </div>
+
+    <!-- add search bar -->
+    <div class="container-fluid">
+        <form class="d-flex mx-1 my-1" id="searchForm">
+            <input class="form-control me-2" id="searchForm" name="query" type="search"
+                placeholder="search campground ..." aria-label="Search">
+            <button class="btn btn-primary ml-2" type="submit"> Search </button>
+        </form>
+        <div class="mb-3">
+            <a href="/campgrounds"> <button class="btn btn-primary btn-sm"></button>>SHOW ALL</button></a>
+        </div>
+    </div>
+
+
     <div class="container">
 
         <div>
@@ -14,7 +31,7 @@
             </div>
         </div>
         <% for (let campground of campgrounds){%>
-            <div class="card mb-3">
+            <div class="campground card mb-3">
                 <div class="row">
                     <div class="col-md-4">
                         <!-- in case the newly added campground does not come with the image -->
@@ -41,16 +58,15 @@
                                 </small>
                             </p>
                             <!-- display average rating -->
+
                             <p class="card-text">
-                                <small class="text-muted">
-                                    <% if (campground.reviews.length===0) {%>
-                                        The campground has not being reviewed
-                                        <% } else { %>
-                                            Current campground rating: <strong>
-                                                <%= campground.averageRating %>
-                                            </strong>
-                                            <% } %>
-                                </small>
+                                <% if (campground.reviews.length===0 ) {%>
+                                    <small class="text-muted"> The campground has not being reviewed </small>
+                                    <% } else { %>
+                                        <p class="starability-result"
+                                            data-rating="<%= Math.round(campground.averageRating)%>">
+                                        </p>
+                                        <% } %>
                             </p>
 
                             <a class="btn btn-primary" href="/campgrounds/<%=campground._id%>">View
@@ -70,3 +86,4 @@
     </script>
 
     <script src="/javascripts/clusterMap.js"></script>
+    <script src='/javascripts/searchCampground.js'></script>

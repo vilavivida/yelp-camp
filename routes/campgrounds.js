@@ -32,8 +32,6 @@ router.route('/')
     // a get request to access new form.ejs
     // a post request to post the new instance to campgrounds
     .get(wrapAsync(campgrounds.index))
-
-    // upload array of images
     .post(isLoggedIn, upload.array('image'), validateCampground, campgrounds.createCampground)
 
 router.get('/new', isLoggedIn, campgrounds.renderNewForm)
